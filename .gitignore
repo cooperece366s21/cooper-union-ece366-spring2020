@@ -24,3 +24,6 @@ hs_err_pid*
 
 # user passwords to be used for testing only
 passwords.txt
+
+# ignore target files
+target/
