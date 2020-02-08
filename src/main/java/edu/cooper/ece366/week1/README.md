@@ -1,6 +1,4 @@
-# Java Playground
-
-## Week 1
+# Week 1
 
 Make sure you have a JVM for Java 11.0 installed. You can compile the source files by running
 
