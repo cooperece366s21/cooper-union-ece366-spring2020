@@ -1,5 +1,6 @@
 package edu.cooper.ee.ece366.groceries.store;
 
+import edu.cooper.ee.ece366.groceries.model.Cart;
 import edu.cooper.ee.ece366.groceries.model.Item;
 import edu.cooper.ee.ece366.groceries.model.User;
 import java.util.Collection;
@@ -26,8 +27,8 @@ public class CartStoreImpl implements CartStore {
   }
 
   @Override
-  public Map<Item, Integer> getCart(User user) {
-    return cart.getOrDefault(user, Map.of());
+  public Cart getCart(User user) {
+    return new Cart(cart.getOrDefault(user, Map.of()));
   }
 
   @Override

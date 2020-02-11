@@ -1,9 +1,9 @@
 package edu.cooper.ee.ece366.groceries;
 
+import edu.cooper.ee.ece366.groceries.model.Cart;
 import edu.cooper.ee.ece366.groceries.model.Item;
 import edu.cooper.ee.ece366.groceries.model.User;
 import java.util.List;
-import java.util.Map;
 import spark.Request;
 
 public class Handler {
@@ -14,13 +14,13 @@ public class Handler {
     this.service = service;
   }
 
-  public Map<Item, Integer> getCart(Request request) {
+  public Cart getCart(Request request) {
     Long userId = getUserId(request);
     User user = new User(userId, "name not implemented");
     return service.getCart(user);
   }
 
-  public Map<Item, Integer> addItemToCart(Request request) {
+  public Cart addItemToCart(Request request) {
     Long userId = getUserId(request);
     Long itemId = getItemId(request);
     User user = new User(userId, "name not implemented");

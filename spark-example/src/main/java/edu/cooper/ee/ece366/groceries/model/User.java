@@ -19,12 +19,25 @@ public class User {
   }
 
   @Override
+  public int hashCode() {
+    final int prime = 31;
+    int result = 1;
+    result = prime * result + id.intValue() + getName().hashCode();
+    return result;
+  }
+
+  @Override
   public boolean equals(final Object obj) {
-    if (!(obj instanceof User)) {
+    if (this == obj) {
+      return true;
+    }
+    if (obj == null) {
+      return false;
+    }
+    if (getClass() != obj.getClass()) {
       return false;
     }
     User other = (User) obj;
-    return super.equals(obj) || (this.id.equals(other.getId()) && this.name
-        .equals(other.getName()));
+    return (this.id.equals(other.getId()) && this.name.equals(other.getName()));
   }
 }

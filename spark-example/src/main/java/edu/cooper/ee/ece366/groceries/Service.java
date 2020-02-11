@@ -1,11 +1,11 @@
 package edu.cooper.ee.ece366.groceries;
 
+import edu.cooper.ee.ece366.groceries.model.Cart;
 import edu.cooper.ee.ece366.groceries.model.Item;
 import edu.cooper.ee.ece366.groceries.model.User;
 import edu.cooper.ee.ece366.groceries.store.CartStore;
 import edu.cooper.ee.ece366.groceries.store.GroceryStore;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 public class Service {
@@ -18,11 +18,11 @@ public class Service {
     this.groceryStore = groceryStore;
   }
 
-  public Map<Item, Integer> getCart(User user) {
+  public Cart getCart(User user) {
     return cartStore.getCart(user);
   }
 
-  public Map<Item, Integer> addItemToCart(User user, Item item) {
+  public Cart addItemToCart(User user, Item item) {
     cartStore.addItem(user, item);
     return cartStore.getCart(user);
   }
@@ -33,7 +33,9 @@ public class Service {
 
   public List<Item> getUserRecommendations(User user) {
     List<Item> items = groceryStore.getItems();
-    Map<Item, Integer> cart = cartStore.getCart(user);
-    return items.stream().filter(item -> !cart.containsKey(item)).collect(Collectors.toList());
+    Cart cart = cartStore.getCart(user);
+    return items.stream()
+        .filter(item -> !cart.getCart().containsKey(item))
+        .collect(Collectors.toList());
   }
 }
