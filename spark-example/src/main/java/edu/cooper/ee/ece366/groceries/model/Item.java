@@ -5,7 +5,7 @@ import com.google.gson.annotations.Expose;
 public class Item {
 
   @Expose private final Long id;
-  private final String name;
+  @Expose private final String name;
   @Expose private final Double cost;
 
   public Item(Long id, String name, Double cost) {

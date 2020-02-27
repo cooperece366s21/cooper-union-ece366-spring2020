@@ -1,14 +1,17 @@
 package edu.cooper.ee.ece366.groceries.store;
 
+import edu.cooper.ee.ece366.groceries.Handler.CreateItemRequest;
 import edu.cooper.ee.ece366.groceries.model.Item;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
+import java.util.concurrent.ConcurrentMap;
+import java.util.concurrent.atomic.AtomicLong;
 import java.util.stream.Collectors;
 
-public class GroceryStoreImpl implements GroceryStore {
+public class GroceryStoreInMemory implements GroceryStore {
 
-  private static final Map<Long, Item> itemsById;
+  private static final ConcurrentMap<Long, Item> itemsById;
+  private static final AtomicLong nextId = new AtomicLong(4);
 
   static {
     itemsById =
@@ -18,7 +21,7 @@ public class GroceryStoreImpl implements GroceryStore {
                 new Item(3L, "Eggs", 5.19),
                 new Item(4L, "Butter", 3.49))
             .stream()
-            .collect(Collectors.toMap(item -> item.getId(), item -> item));
+            .collect(Collectors.toConcurrentMap(item -> item.getId(), item -> item));
   }
 
   @Override
@@ -34,5 +37,13 @@ public class GroceryStoreImpl implements GroceryStore {
   @Override
   public Item getItem(final Long id) {
     return itemsById.getOrDefault(id, null);
+  }
+
+  @Override
+  public Item addItem(final CreateItemRequest createItemRequest) {
+    long id = nextId.getAndIncrement();
+    Item item = new Item(id, createItemRequest.getName(), createItemRequest.getCost());
+    itemsById.put(id, item);
+    return item;
   }
 }

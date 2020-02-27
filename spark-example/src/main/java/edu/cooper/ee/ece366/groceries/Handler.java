@@ -1,5 +1,6 @@
 package edu.cooper.ee.ece366.groceries;
 
+import com.google.gson.Gson;
 import edu.cooper.ee.ece366.groceries.model.Cart;
 import edu.cooper.ee.ece366.groceries.model.Item;
 import edu.cooper.ee.ece366.groceries.model.User;
@@ -9,9 +10,11 @@ import spark.Request;
 public class Handler {
 
   private final Service service;
+  private final Gson gson;
 
-  public Handler(Service service) {
+  public Handler(Service service, Gson gson) {
     this.service = service;
+    this.gson = gson;
   }
 
   public Cart getCart(Request request) {
@@ -44,5 +47,33 @@ public class Handler {
 
   private Long getItemId(final Request request) {
     return Long.valueOf(request.params(":itemId"));
+  }
+
+  public Item createItem(final Request req) {
+    CreateItemRequest createItemRequest = gson.fromJson(req.body(), CreateItemRequest.class);
+    return service.createItem(createItemRequest);
+  }
+
+  public Object getItem(final Request req) {
+    Long itemId = Long.valueOf(req.params(":itemId"));
+    return service.getItem(itemId);
+  }
+
+  public class CreateItemRequest {
+    private final String name;
+    private final Double cost;
+
+    public CreateItemRequest(String name, Double cost) {
+      this.name = name;
+      this.cost = cost;
+    }
+
+    public String getName() {
+      return name;
+    }
+
+    public Double getCost() {
+      return cost;
+    }
   }
 }

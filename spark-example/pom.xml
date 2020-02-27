@@ -11,6 +11,25 @@
 
   <artifactId>spark-example</artifactId>
 
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>org.jdbi</groupId>
+        <artifactId>jdbi3-bom</artifactId>
+        <type>pom</type>
+        <version>3.12.2</version>
+        <scope>import</scope>
+      </dependency>
+      <dependency>
+        <groupId>com.spotify</groupId>
+        <artifactId>folsom-bom</artifactId>
+        <version>1.7.1</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
+
   <dependencies>
     <dependency>
       <groupId>com.sparkjava</groupId>
@@ -26,6 +45,20 @@
       <groupId>org.slf4j</groupId>
       <artifactId>slf4j-simple</artifactId>
       <version>1.7.30</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.jdbi</groupId>
+      <artifactId>jdbi3-core</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>com.h2database</groupId>
+      <artifactId>h2</artifactId>
+      <version>1.4.200</version>
+    </dependency>
+    <dependency>
+      <groupId>com.spotify</groupId>
+      <artifactId>folsom</artifactId>
     </dependency>
   </dependencies>
 

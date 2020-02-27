@@ -38,4 +38,12 @@ public class Service {
         .filter(item -> !cart.getCart().containsKey(item))
         .collect(Collectors.toList());
   }
+
+  public Item createItem(final Handler.CreateItemRequest createItemRequest) {
+    return groceryStore.addItem(createItemRequest);
+  }
+
+  public Item getItem(final Long itemId) {
+    return groceryStore.getItem(itemId);
+  }
 }
